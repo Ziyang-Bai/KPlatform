@@ -15,7 +15,7 @@ def wrap_text(text, width):
         wrapped_lines.append(current_line.strip())
     return wrapped_lines
 
-def display_text(stdscr, text, scroll_pos):
+def display_text(stdscr, text, scroll_pos, filename):
     stdscr.clear()
     height, width = stdscr.getmaxyx()
     wrapped_text = wrap_text(text, width - 1)
@@ -31,14 +31,14 @@ def display_text(stdscr, text, scroll_pos):
         except curses.error:
             pass  # 屏幕太小，忽略错误
 
-    # 显示底部的退出提示
+    # 显示底部的退出提示和文件名
     try:
         stdscr.addstr(height-1, 0, "Press ESC to exit")
+        stdscr.addstr(height-1, width - len(filename), filename)
     except curses.error:
         pass  # 屏幕太小，忽略错误
 
     stdscr.refresh()
-
 def main(stdscr):
     curses.curs_set(0)  # 隐藏光标
 
@@ -50,11 +50,11 @@ def main(stdscr):
         "Line 4 of your text.Line 4 of your text.Line 4 of your text.Line 4 of your text.",
         # ... 更多行 ...
     ]
-
+    filename = "example.txt"
     scroll_pos = 0
 
     while True:
-        display_text(stdscr, text, scroll_pos)
+        display_text(stdscr, text, scroll_pos,filename)
         
         key = stdscr.getch()
         
