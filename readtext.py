@@ -56,7 +56,7 @@ def main(stdscr):
     curses.curs_set(0)  # 隐藏光标
 
     # 文件名
-    filename = "example.txt"
+    filename = "LICENSE"
 
     # 从文件读取文本
     with open(filename, 'r') as file:
